@@ -7,7 +7,7 @@ const cos = require('../controller/cos')
 const comment = require('../controller/comment')
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', {
+  res.render('index.html', {
     title: 'Express'
   });
 });

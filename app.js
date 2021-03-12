@@ -8,11 +8,15 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 let session = require("express-session");
 var app = express();
+var ejs = require('ejs');
+const history = require("connect-history-api-fallback");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.engine('html', ejs.__express);
+app.set('view engine', 'html');
+app.use(history());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
