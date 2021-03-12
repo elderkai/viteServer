@@ -1,1 +1,0 @@
-import{o as f,f as a,h as d}from"./index.f8f7fc4f.js";import"./vendor.521ca53b.js";const e={setup:()=>({})},o=d("data-v-0f7fc468")(((d,e,o,s,t,r)=>(f(),a("div",null," 项目 "))));e.render=o,e.__scopeId="data-v-0f7fc468";export default e;
