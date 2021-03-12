@@ -1,0 +1,1 @@
+import{o as a,f as d,h as o}from"./index.f8f7fc4f.js";import"./vendor.521ca53b.js";const t={setup:()=>({})},e=o("data-v-8d910040")(((o,t,e,s,f,r)=>(a(),d("div",null," about "))));t.render=e,t.__scopeId="data-v-8d910040";export default t;
