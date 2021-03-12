@@ -1,1 +1,0 @@
-import{o as e,c as a,a3 as d}from"./vendor.e8c09140.js";const o={setup:()=>({})},s=d("data-v-02be2941")(((d,o,s,t,r,c)=>(e(),a("div",null," 留言 "))));o.render=s,o.__scopeId="data-v-02be2941";export default o;
