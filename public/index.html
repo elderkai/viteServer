@@ -1,45 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <style>
-        #live2d-widget{
-            transform: scale(.6) translateX(60px);
+        @media screen and (min-width: 0px)and (max-width: 1050px) {
+            #live2d-widget {
+                transform: scale(.6) translateX(60px);
+            }
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>岁月如歌的个人博客网站</title>
-  <script type="module" crossorigin src="/assets/index.bb5a4900.js"></script>
+<script type="module" crossorigin src="/assets/index.ded757e1.js"></script>
   <link rel="modulepreload" href="/assets/vendor.03d6fc96.js">
   <link rel="stylesheet" href="/assets/index.a9cca32a.css">
 </head>
-  <body>
-    <div id="app"></div>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/wangsrGit119/wangsr-image-bucket/L2Dwidget/js/L2Dwidget.min.js"></script>
 
-<script src="https://cdn.tiny.cloud/1/kwknrcado9dsg7x0m4xruc0v12fkmgafl0d0ymn3ckm1iqcp/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<body>
+    <div id="app"></div>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/gh/wangsrGit119/wangsr-image-bucket/L2Dwidget/js/L2Dwidget.min.js"></script>
+
+    <script src="https://cdn.tiny.cloud/1/kwknrcado9dsg7x0m4xruc0v12fkmgafl0d0ymn3ckm1iqcp/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
     
     <script>
-         var phoneWidth = parseInt(window.screen.width);
-      var phoneScale = phoneWidth / 750;
-      var ua = navigator.userAgent;
-      if (/Android (\d+\.\d+)/.test(ua)) {
-          var version = parseFloat(RegExp.$1);
-          if (version > 2.3) {
-              document.write('<meta name="viewport" content="width=750, minimum-scale = ' + phoneScale +
-                  ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
-          } else {
-              document.write('<meta name="viewport" content="width=750, target-densitydpi=device-dpi">');
-          }
-      } else {
-          document.write('<meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi">');
-      }
-      if (navigator.appVersion.indexOf('Android') != -1) {
+        var phoneWidth = parseInt(window.screen.width);
+        var phoneScale = phoneWidth / 750;
+        var ua = navigator.userAgent;
+        if (/Android (\d+\.\d+)/.test(ua)) {
+            var version = parseFloat(RegExp.$1);
+            if (version > 2.3) {
+                document.write('<meta name="viewport" content="width=750, minimum-scale = ' + phoneScale +
+                    ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+            } else {
+                document.write('<meta name="viewport" content="width=750, target-densitydpi=device-dpi">');
+            }
+        } else {
+            document.write('<meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi">');
+        }
+        if (navigator.appVersion.indexOf('Android') != -1) {
             document.addEventListener("DOMContentLoaded", function (e) {
                 document.getElementById('app').style.zoom = e.target.activeElement.clientWidth / 750;
             });
         };
     </script>
-  </body>
+</body>
+
 </html>
