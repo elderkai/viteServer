@@ -43,12 +43,7 @@ router.post("/lable/create", async (req, res, next) => {
 router.get('/lable/getLables', async (req, res, next) => {
     try {
         let total = "";
-           if(!req.session.userName){  
-        res.json({
-            code:201,
-            msg:"未登录或登录已过期"
-        })
-     }else{
+  
         lableModel.find().countDocuments().then(data => {
             total = data;
         })
@@ -59,7 +54,6 @@ router.get('/lable/getLables', async (req, res, next) => {
                 data
             })
         })
-     }
     } catch (err) {
         res.json({
             code: 400,
