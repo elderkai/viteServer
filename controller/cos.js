@@ -47,7 +47,7 @@ const config = {
 // 处理跨域
 //   app.use(cors())
 
-router.get('/sts', (req, res) => {
+router.get('/apis/sts', (req, res) => {
     // 获取临时密钥
    if(!req.session.userName){  
         res.json({

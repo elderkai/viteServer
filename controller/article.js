@@ -3,7 +3,7 @@ const router=Router()
 const articleModel=require('../model/article')
 const labModel =require('../model/lable')
 const userModel =require('../model/user')
-router.post("/article/add",async (req,res,next)=>{
+router.post("/apis/article/add",async (req,res,next)=>{
     try{
            if(!req.session.userName){  
         res.json({
@@ -38,7 +38,7 @@ router.post("/article/add",async (req,res,next)=>{
         })
     }
 })
-router.post('/article/rewrite',async (req,res,next)=>{
+router.post('/apis/article/rewrite',async (req,res,next)=>{
     try{
            if(!req.session.userName){  
         res.json({
@@ -72,7 +72,7 @@ router.post('/article/rewrite',async (req,res,next)=>{
         })
     }
 })
-router.get('/article',async (req,res)=>{
+router.get('/apis/article',async (req,res)=>{
 
     let{pn=1,size=10,author}=req.query
     let  total='';
@@ -101,7 +101,7 @@ router.get('/article',async (req,res)=>{
         })
     })
 })
-router.get('/article/:id',async (req,res)=>{
+router.get('/apis/article/:id',async (req,res)=>{
  
     const{id}=req.params
         await  articleModel.findById(id)
@@ -119,7 +119,7 @@ router.get('/article/:id',async (req,res)=>{
         })
     })
 })
-router.post('/article/remove', async (req, res, next) => {
+router.post('/apis/article/remove', async (req, res, next) => {
     const {
         _id
     } = req.body;

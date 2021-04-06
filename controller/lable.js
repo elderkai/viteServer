@@ -6,7 +6,7 @@ const {
 } = require("../config/config")
 const router = Router()
 const lableModel = require('../model/lable')
-router.post("/lable/create", async (req, res, next) => {
+router.post("/apis/lable/create", async (req, res, next) => {
     try {
         const {
             lable
@@ -40,7 +40,7 @@ router.post("/lable/create", async (req, res, next) => {
         })
     }
 })
-router.get('/lable/getLables', async (req, res, next) => {
+router.get('/apis/lable/getLables', async (req, res, next) => {
     try {
         let total = "";
   
@@ -61,7 +61,7 @@ router.get('/lable/getLables', async (req, res, next) => {
         })
     }
 })
-router.post('/lable/remove', async (req, res, next) => {
+router.post('/apis/lable/remove', async (req, res, next) => {
     const {
         _id
     } = req.body;
@@ -104,7 +104,7 @@ router.post('/lable/remove', async (req, res, next) => {
         })
     }
 })
-router.post('/lable/change',async (req,res,next)=>{
+router.post('/apis/lable/change',async (req,res,next)=>{
     const {lable,_id}=req.body;
     try{
            if(!req.session.userName){  

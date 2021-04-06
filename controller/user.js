@@ -14,7 +14,7 @@ function checkEmail(value) {
         return true;
     }
 }
-router.post('/register', async (req, res, next) => {
+router.post('/apis/register', async (req, res, next) => {
     try {
         const {
             username,
@@ -75,7 +75,7 @@ router.post('/register', async (req, res, next) => {
         }
     }
 })
-router.post('/user/remove', async (req, res, next) => {
+router.post('/apis/user/remove', async (req, res, next) => {
     const {
         _id
     } = req.body;
@@ -117,7 +117,7 @@ router.post('/user/remove', async (req, res, next) => {
         })
     }
 })
-router.post('/user/updata', async (req, res, next) => {
+router.post('/apis/user/updata', async (req, res, next) => {
     const {
         username,
         password,
@@ -158,14 +158,14 @@ router.post('/user/updata', async (req, res, next) => {
     }
      }
 })
-router.post("/logout", async (req, res) => {
+router.post("/apis/logout", async (req, res) => {
     req.session.userName = "";
     res.json({
         code: 200,
         msg: "退出登录成功！"
     })
 })
-router.post('/login', async (req, res, next) => {
+router.post('/apis/login', async (req, res, next) => {
     try {
         const {
             username,
@@ -199,7 +199,7 @@ router.post('/login', async (req, res, next) => {
         })
     }
 })
-router.get('/getUsers',async (req,res)=>{
+router.get('/apis/getUsers',async (req,res)=>{
     let{pn=1,size=10}=req.query
     let  total='';
     pn=parseInt(pn)
@@ -227,7 +227,7 @@ router.get('/getUsers',async (req,res)=>{
     })
      }
 })
-router.post('/manage/login', async (req, res, next) => {
+router.post('/apis/manage/login', async (req, res, next) => {
     try {
         const {
             username,

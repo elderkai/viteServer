@@ -1,7 +1,7 @@
 const {Router}=require("express")
 const router=Router()
 const Comment=require('../model/comment')
-router.post('/addComment',async (req,res,next)=>{
+router.post('/apis/addComment',async (req,res,next)=>{
     const {articleId,content,user,commentId,replayName,follow}=req.body;
         try{
                if(!req.session.userName){  
@@ -32,7 +32,7 @@ router.post('/addComment',async (req,res,next)=>{
 
 
 })
-router.get('/getComment',(req,res,next)=>{
+router.get('/apis/getComment',(req,res,next)=>{
 const {pn=1,size=10,articleId=""}=req.query
 let total='';
 
