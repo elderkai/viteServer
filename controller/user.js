@@ -244,7 +244,7 @@ router.post('/apis/manage/login', async (req, res, next) => {
         } else {
             if (password && password == userData.password) {
                 userData.password = '';
-                req.session.username = username;
+                // req.session.username = username;
                 if(!userData.power){
                     throw "该用户没有访问权限"
                 }
