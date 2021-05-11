@@ -1,0 +1,1 @@
+import{r as e,o as a,c as s,a as r,a5 as t}from"./vendor.03d6fc96.js";const o={setup:()=>({})},d=t()(((t,o,d,n,c,p)=>{const i=e("el-empty");return a(),s("div",null,[r(i,{"image-size":200})])}));o.render=d,o.__scopeId="data-v-92964350";export default o;

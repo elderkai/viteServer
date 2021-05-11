@@ -1,164 +1,201 @@
-const {Router} =require("express")
-const router=Router()
-const articleModel=require('../model/article')
-const labModel =require('../model/lable')
-const userModel =require('../model/user')
-router.post("/apis/article/add",async (req,res,next)=>{
-    try{
-           if(!req.session.userName){  
-        res.json({
-            code:201,
-            msg:"未登录或登录已过期"
-        })
-     }else{
-        const{content,introduce,coverImg,title,lable,author}=req.body
-        console.log(req.body);
-        const titleData=await articleModel.findOne({title});
-        console.log(titleData);
-        if(titleData!=null){
-            throw "标题重复"
-        }
-        const data = await articleModel.create({
-            title,
+const { Router } = require("express");
+const router = Router();
+const articleModel = require("../model/article");
+const labModel = require("../model/lable");
+const userModel = require("../model/user");
+router.post("/apis/article/add", async (req, res, next) => {
+  try {
+    if (!req.session.userName) {
+      res.json({
+        code: 201,
+        msg: "未登录或登录已过期",
+      });
+    } else {
+      const { content, introduce, coverImg, title, lable, author } = req.body;
+      console.log(req.body);
+      const titleData = await articleModel.findOne({ title });
+      console.log(titleData);
+      if (titleData != null) {
+        throw "标题重复";
+      }
+      const data = await articleModel.create({
+        title,
+        content,
+        lable,
+        introduce,
+        coverImg,
+        author,
+      });
+      res.json({
+        code: 200,
+        msg: "发布成功!",
+        data: data,
+      });
+    }
+  } catch (err) {
+    res.json({
+      code: 400,
+      msg: err,
+    });
+  }
+});
+router.post("/apis/article/rewrite", async (req, res, next) => {
+  try {
+    if (!req.session.userName) {
+      res.json({
+        code: 201,
+        msg: "未登录或登录已过期",
+      });
+    } else {
+      const {
+        content,
+        contentText,
+        introduce,
+        coverImg,
+        title,
+        lable,
+        author,
+        _id,
+      } = req.body;
+      const artData = await articleModel.findOne({ _id });
+      if (_id == "" || artData == null) {
+        throw "文章不存在";
+      } else {
+        const data = await articleModel.updateOne(
+          {
+            _id,
+          },
+          {
             content,
+            contentText,
+            title,
             lable,
-            introduce,coverImg,
-            author})
-            res.json({
-                code:200,
-                msg:'发布成功!',
-                data:data
-            })
-     }
-    }
-    catch(err){
-        res.json({
-            code:400,
-            msg:err
-        })
-    }
-})
-router.post('/apis/article/rewrite',async (req,res,next)=>{
-    try{
-           if(!req.session.userName){  
-        res.json({
-            code:201,
-            msg:"未登录或登录已过期"
-        })
-     }else{
-        const{content,contentText,introduce,coverImg,title,lable,author,_id}=req.body
-        const artData=await articleModel.findOne({_id});
-        if(_id==''||artData==null){
-            throw "文章不存在"
-        }else{
-           const data = await articleModel.updateOne({
-            _id
-        }, {
-            content,contentText,title,lable,author,introduce,coverImg,
-        })
+            author,
+            introduce,
+            coverImg,
+          }
+        );
         console.log(data);
-            res.json({
-                code:200,
-                msg:"修改成功",
-            })
-        
-        }
-     }
-    }
-    catch(err){
         res.json({
-            code:400,
-            msg:err
-        })
+          code: 200,
+          msg: "修改成功",
+        });
+      }
     }
-})
-router.get('/apis/article',async (req,res)=>{
-
-    let{pn=1,size=10,author}=req.query
-    let  total='';
-    console.log(author)
-    pn=parseInt(pn)
-    size=parseInt(size)
-    await articleModel.find().count().then(data=>{
-     total=data
-})
-   await  articleModel.find()
-    .skip((pn-1)*size)
+  } catch (err) {
+    res.json({
+      code: 400,
+      msg: err,
+    });
+  }
+});
+router.get("/apis/article", async (req, res) => {
+  let { pn = 1, size = 10, author } = req.query;
+  let total = "";
+  console.log(author);
+  pn = parseInt(pn);
+  size = parseInt(size);
+  await articleModel
+    .find()
+    .count()
+    .then((data) => {
+      total = data;
+    });
+  await articleModel
+    .find()
+    .skip((pn - 1) * size)
     .limit(size)
-    .sort({_id:-1})
+    .sort({ _id: -1 })
     .populate({
-        path:'author',
-        select:'-password -email'
+      path: "author",
+      select: "-password -email",
     })
     .populate({
-        path:'lable',
+      path: "lable",
     })
-    .then(data=>{
+    .then((data) => {
+      res.json({
+        code: 200,
+        data,
+        total,
+      });
+    });
+});
+function updateArticle(id, array) {
+  const data = articleModel.updateOne(
+    {
+      _id: id,
+    },
+     {readnumber:3}
+  );
+}
+router.get("/apis/article/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await articleModel
+      .findById(id)
+      .populate({
+        path: "author",
+        select: "-password -email",
+      })
+      .populate({
+        path: "lable",
+      })
+      .then((data) => {
+        data.readnumber += 1;
+        let readnumber = data.readnumber;
+        updateArticle(id, { readnumber });
         res.json({
-            code:200,
-            data,
-            total
-        })
-    })
-})
-router.get('/apis/article/:id',async (req,res)=>{
- 
-    const{id}=req.params
-        await  articleModel.findById(id)
-    .populate({
-        path:'author',
-        select:'-password -email'
-    })
-    .populate({
-        path:'lable'
-    })
-    .then(data=>{
-        res.json({
-            code:200,
-            data
-        })
-    })
-})
-router.post('/apis/article/remove', async (req, res, next) => {
-    const {
-        _id
-    } = req.body;
-    try {
-           if(!req.session.userName){  
-        res.json({
-            code:201,
-            msg:"未登录或登录已过期"
-        })
-     }else{
-        articleModel.deleteOne({
-            _id
-        }, (err, end) => {
-            if (err) {
-                res.json({
-                    code: 400,
-                    msg: '系统错误',
-                    err
-                })
+          code: 200,
+          data,
+        });
+      });
+  } catch (err) {
+    console.log(err);
+  }
+});
+router.post("/apis/article/remove", async (req, res, next) => {
+  const { _id } = req.body;
+  try {
+    if (!req.session.userName) {
+      res.json({
+        code: 201,
+        msg: "未登录或登录已过期",
+      });
+    } else {
+      articleModel.deleteOne(
+        {
+          _id,
+        },
+        (err, end) => {
+          if (err) {
+            res.json({
+              code: 400,
+              msg: "系统错误",
+              err,
+            });
+          } else {
+            if (end.deletedCount) {
+              res.json({
+                code: 200,
+                msg: "删除成功！",
+              });
             } else {
-                if (end.deletedCount) {
-                    res.json({
-                        code: 200,
-                        msg: "删除成功！"
-                    })
-                } else {
-                    res.json({
-                        code: 400,
-                        msg: "文章不存在"
-                    })
-                }
+              res.json({
+                code: 400,
+                msg: "文章不存在",
+              });
             }
-        })
-     }
-    } catch (err) {
-        res.json({
-            code: 400,
-            msg: err
-        })
+          }
+        }
+      );
     }
-})
-module.exports=router;
+  } catch (err) {
+    res.json({
+      code: 400,
+      msg: err,
+    });
+  }
+});
+module.exports = router;
