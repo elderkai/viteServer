@@ -3,7 +3,8 @@ const Schema=mongoose.Schema
 const article=new mongoose.Schema({
     title:{type:String,
         unique:false, //唯一
-    required:true},
+    // required:true
+},
     content:String,
     introduce:String,
     coverImg:String,

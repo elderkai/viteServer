@@ -1,6 +1,7 @@
 const {Router}=require("express")
 const router=Router()
 const Comment=require('../model/comment')
+const articleModel = require("../model/article");
 router.post('/apis/addComment',async (req,res,next)=>{
     const {articleId,content,user,commentId,replayName,follow}=req.body;
         try{
@@ -16,6 +17,7 @@ router.post('/apis/addComment',async (req,res,next)=>{
                     code:"200",
                     msg:'评论发表成功'
                 })
+                await articleModel.update({_id:articleId},{$inc:{commonnum:1}})
             }else{
                 res.json({
                     code:400,

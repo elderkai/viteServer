@@ -121,13 +121,12 @@ router.get("/apis/article", async (req, res) => {
       });
     });
 });
-function updateArticle(id, array) {
+function updateArticle(_id, readNumber ,title) {
   const data = articleModel.updateOne(
-    {
-      _id: id,
-    },
-     {readnumber:3}
+      {_id},
+     {$inc:{readnumber:1,commonnum:1}}
   );
+  console.log(data);
 }
 router.get("/apis/article/:id", async (req, res) => {
   const { id } = req.params;
@@ -144,13 +143,16 @@ router.get("/apis/article/:id", async (req, res) => {
       })
       .then((data) => {
         data.readnumber += 1;
+        console.log(data.readnumber);
         let readnumber = data.readnumber;
-        updateArticle(id, { readnumber });
+        // updateArticle(id, readnumber ,data.title );
+      
         res.json({
           code: 200,
           data,
         });
       });
+      const da=  await articleModel.update({_id:id},{$inc:{readnumber:1}})
   } catch (err) {
     console.log(err);
   }
