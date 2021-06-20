@@ -16,13 +16,16 @@ function checkEmail(value) {
 }
 router.post('/apis/register', async (req, res, next) => {
     try {
-        const {
+        let {
             username,
             password,
             email,
             picUrl = 'https://blog-1256024584.cos.ap-nanjing.myqcloud.com/12312.png',
             power = 0
         } = req.body
+        console.log(Math.ceil(Math.random()*29));
+        picUrl=`https://blog-1256024584.cos.ap-nanjing.myqcloud.com/userAvator/`+Math.ceil(Math.random()*29+1)+'.jpg'   
+       console.log(picUrl);
         const userData = await userModel.findOne({
             username
         })
